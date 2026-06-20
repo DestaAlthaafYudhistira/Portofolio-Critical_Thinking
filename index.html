@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SARING Sebelum SHARING — Portofolio Critical Thinking</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+/* ===================== VARIABLES (dari Portofolio.css) ===================== */
+:root{
+  --primary-color:#0d6efd;   /* Biru Modern */
+  --secondary-color:#c026d3; /* Magenta Neon */
+  --accent-color:#facc15;    /* Kuning Emas */
+  --dark-bg:#0d1117;
+  --light-bg:#161b22;
+  --text-color:#c9d1d9;
+  --heading-color:#f0f6fc;
+  --font-family:'Poppins', sans-serif;
+}
+*{margin:0; padding:0; box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--font-family);
+  line-height:1.65;
+  color:var(--text-color);
+  background-color:var(--dark-bg);
+  overflow-x:hidden;
+  cursor:none;
+}
+.container{max-width:1140px; margin:auto; overflow:hidden; padding:0 2rem;}
+h1,h2,h3,h4{font-weight:600; line-height:1.2; color:var(--heading-color);}
+h1{font-size:3.4rem; font-weight:700;}
+h2{font-size:2.3rem; margin-bottom:.4rem; background:linear-gradient(90deg,var(--primary-color),var(--secondary-color)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;}
+h3{font-size:1.5rem; margin-bottom:1.2rem; color:var(--text-color); font-weight:400;}
+h4{font-size:1.15rem; margin-bottom:.5rem; color:var(--accent-color);}
+p{margin-bottom:1rem;}
+ul{list-style:none;}
+section{padding:6rem 0; position:relative;}
+.bg-light{background-color:var(--light-bg);}
+.grad-text{background:linear-gradient(90deg,var(--primary-color),var(--secondary-color)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;}
+.eyebrow{
+  display:inline-flex; align-items:center; gap:10px;
+  font-size:.78rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--secondary-color); margin-bottom:.8rem;
+}
+.eyebrow::before{content:""; width:24px; height:2px; background:var(--accent-color); display:inline-block;}
+
+/* ===================== CUSTOM CURSOR ===================== */
+.cursor{
+  width:20px; height:20px; border:2px solid var(--secondary-color); border-radius:50%;
+  position:fixed; transform:translate(-50%,-50%); pointer-events:none; transition:all .15s ease; z-index:10000;
+}
+.cursor-follower{
+  width:40px; height:40px; background-color:rgba(192,38,211,.1); border-radius:50%;
+  position:fixed; transform:translate(-50%,-50%); pointer-events:none; transition:all .4s ease; z-index:9999;
+}
+
+/* ===================== LOADER ===================== */
+.loader-wrapper{
+  position:fixed; inset:0; background-color:var(--dark-bg);
+  display:flex; justify-content:center; align-items:center; z-index:10001;
+  transition:opacity .5s, visibility .5s;
+}
+.loader-wrapper.fade-out{opacity:0; visibility:hidden;}
+.loader{
+  width:50px; height:50px; border:5px solid var(--light-bg); border-top:5px solid var(--secondary-color);
+  border-radius:50%; animation:spin 1s linear infinite;
+}
+@keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+
+/* ===================== HEADER / NAV / HERO ===================== */
+header{
+  min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center;
+  text-align:center; padding:0 2rem; position:relative; overflow:hidden;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(13,110,253,.22), transparent 38%),
+    radial-gradient(circle at 82% 18%, rgba(192,38,211,.22), transparent 40%),
+    radial-gradient(circle at 50% 90%, rgba(250,204,21,.10), transparent 45%),
+    var(--dark-bg);
+}
+.blob{position:absolute; border-radius:50%; filter:blur(70px); opacity:.55; z-index:0; pointer-events:none;}
+.blob-1{width:340px; height:340px; background:var(--primary-color); top:-60px; left:-80px; animation:floatBlob 16s ease-in-out infinite;}
+.blob-2{width:300px; height:300px; background:var(--secondary-color); bottom:-90px; right:-60px; animation:floatBlob 19s ease-in-out infinite reverse;}
+.blob-3{width:220px; height:220px; background:var(--accent-color); top:55%; left:75%; opacity:.25; animation:floatBlob 13s ease-in-out infinite;}
+@keyframes floatBlob{
+  0%,100%{transform:translate(0,0) scale(1);}
+  50%{transform:translate(30px,-30px) scale(1.12);}
+}
+
+nav{
+  position:fixed; top:0; left:0; width:100%; padding:1.5rem 5%; z-index:1000;
+  display:flex; justify-content:space-between; align-items:center; transition:all .3s ease;
+}
+nav.scrolled{padding:.8rem 5%; background-color:rgba(13,17,23,.92); backdrop-filter:blur(10px); box-shadow:0 5px 20px rgba(0,0,0,.3);}
+nav .logo{font-size:1.4rem; font-weight:700; color:var(--heading-color); letter-spacing:.03em;}
+.nav-links{display:flex;}
+.nav-links li{margin-left:2rem;}
+.nav-links a{color:var(--text-color); text-decoration:none; font-weight:600; font-size:.95rem; position:relative; transition:color .3s ease;}
+.nav-links a::after{content:""; position:absolute; width:0; height:2px; bottom:-6px; left:50%; background-color:var(--secondary-color); transition:all .3s ease;}
+.nav-links a:hover, .nav-links a.active{color:var(--secondary-color);}
+.nav-links a:hover::after, .nav-links a.active::after{width:100%; left:0;}
+
+.hero-content{position:relative; z-index:2;}
+.hero-content h1{
+  margin-bottom:.5rem; color:var(--heading-color);
+  border-right:3px solid var(--secondary-color); white-space:nowrap; overflow:hidden;
+  animation:blink-caret .75s step-end infinite; display:inline-block;
+}
+.hero-content h1 em{font-style:normal; color:var(--secondary-color);}
+@keyframes blink-caret{from,to{border-color:transparent;} 50%{border-color:var(--secondary-color);}}
+.hero-content .subtitle{font-size:1.08rem; font-weight:400; margin-bottom:.45rem; color:var(--text-color); max-width:46ch; margin-left:auto; margin-right:auto;}
+.hero-content .subtitle b{color:var(--heading-color); font-weight:600;}
+
+.banner{margin-top:2.2rem; margin-bottom:1.4rem;}
+.banner .avatar-circle{
+  width:130px; height:130px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-size:2.6rem; margin:0 auto;
+  background:linear-gradient(135deg, var(--light-bg), var(--dark-bg));
+  border:4px solid var(--secondary-color); box-shadow:0 0 25px rgba(192,38,211,.55);
+  transition:transform .3s ease, box-shadow .3s ease;
+}
+.banner .avatar-circle:hover{transform:scale(1.06); box-shadow:0 0 35px rgba(192,38,211,.75);}
+.edit-note{font-size:.72rem; color:var(--accent-color); opacity:.8; margin-top:.5rem; letter-spacing:.03em;}
+
+.cta-button{
+  display:inline-block; margin-top:1.8rem; padding:.8rem 2.1rem;
+  background:linear-gradient(45deg,var(--primary-color),var(--secondary-color));
+  color:#fff; text-decoration:none; font-weight:700; border-radius:50px;
+  box-shadow:0 4px 15px rgba(192,38,211,.4); transition:all .3s ease;
+  animation:pulseGlow 2.6s ease-in-out infinite;
+}
+.cta-button:hover{transform:translateY(-3px); box-shadow:0 6px 24px rgba(192,38,211,.7);}
+@keyframes pulseGlow{
+  0%,100%{box-shadow:0 4px 15px rgba(192,38,211,.4);}
+  50%{box-shadow:0 4px 26px rgba(13,110,253,.55);}
+}
+
+/* ===================== INTRO: STUDI KASUS (feed mockup + stats) ===================== */
+.intro-grid{display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:center;}
+.feed-card{
+  background:var(--dark-bg); border:1px solid rgba(255,255,255,.08); border-radius:18px;
+  padding:1.6rem 1.6rem 1.8rem; box-shadow:0 15px 35px rgba(0,0,0,.4); position:relative;
+  transform:rotate(-1.2deg); transition:transform .35s ease;
+}
+.feed-card:hover{transform:rotate(0deg) translateY(-4px);}
+.feed-head{display:flex; align-items:center; gap:11px;}
+.feed-avatar{
+  width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(135deg,var(--primary-color),var(--secondary-color)); color:#fff; font-weight:700;
+}
+.feed-name{font-weight:700; color:var(--heading-color); font-size:.95rem;}
+.feed-time{font-size:.78rem; color:var(--text-color); opacity:.7;}
+.feed-text{margin-top:.9rem; font-size:1rem; line-height:1.65; color:var(--text-color);}
+.feed-text mark{background:var(--accent-color); color:var(--dark-bg); padding:1px 5px; border-radius:4px; font-weight:600;}
+.feed-stats{margin-top:1rem; padding-top:.9rem; border-top:1px dashed rgba(255,255,255,.12); display:flex; gap:1.1rem; font-size:.78rem; color:var(--text-color); opacity:.85;}
+.stamp{
+  position:absolute; top:-16px; right:-12px; border:3px solid var(--secondary-color); color:var(--secondary-color);
+  font-weight:700; font-size:.8rem; letter-spacing:.05em; text-transform:uppercase; padding:7px 13px; border-radius:8px;
+  background:rgba(13,17,23,.92); transform:rotate(8deg) scale(.6); opacity:0;
+  transition:transform .6s cubic-bezier(.34,1.56,.64,1), opacity .5s ease;
+}
+.stamp.in{opacity:1; transform:rotate(8deg) scale(1);}
+
+.stats-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:1.4rem;}
+.stat-card{
+  background:var(--light-bg); padding:1.6rem 1.4rem; border-radius:15px; border:1px solid rgba(255,255,255,.08);
+  position:relative; overflow:hidden; transition:all .4s ease;
+}
+.stat-card::before{content:""; position:absolute; top:0; left:-100%; width:100%; height:100%; background:linear-gradient(90deg,transparent,rgba(192,38,211,.18),transparent); transition:left .5s;}
+.stat-card:hover::before{left:100%;}
+.stat-card:hover{transform:translateY(-8px) scale(1.02); box-shadow:0 15px 28px rgba(192,38,211,.25); border-color:var(--secondary-color);}
+.stat-card .num{font-size:2rem; font-weight:800; line-height:1;}
+.stat-card .label{margin-top:.55rem; font-size:.82rem; color:var(--text-color); line-height:1.5;}
+
+/* ===================== VIDEO SECTION ===================== */
+.video-info{display:grid; grid-template-columns:1fr; gap:1rem; margin-bottom:2rem;}
+.video-frame{
+  position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden;
+  background:linear-gradient(135deg, var(--light-bg), var(--dark-bg));
+  border:1px solid rgba(255,255,255,.08); display:flex; align-items:center; justify-content:center;
+  box-shadow:0 20px 40px rgba(0,0,0,.4);
+}
+.video-frame::before{
+  content:""; position:absolute; inset:0; border-radius:18px; padding:2px;
+  background:linear-gradient(135deg,var(--primary-color),var(--secondary-color));
+  -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude; opacity:.5;
+  pointer-events:none;
+}
+.video-frame .play{
+  width:76px; height:76px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:transform .25s ease; box-shadow:0 0 30px rgba(192,38,211,.5); position:relative; z-index:2;
+}
+.video-frame .play:hover{transform:scale(1.1);}
+.video-frame iframe{position:relative; z-index:2; width:100%; height:100%;}
+.video-caption{position:absolute; left:18px; bottom:16px; color:#fff; font-size:.8rem; background:rgba(0,0,0,.4); padding:6px 12px; border-radius:99px; z-index:2;}
+.cast{display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.4rem;}
+.cast span{font-size:.78rem; padding:6px 13px; border:1px solid rgba(255,255,255,.15); border-radius:99px; color:var(--text-color); background:rgba(255,255,255,.03);}
+  .infographic-card{
+    margin:4rem auto 0; max-width:740px; background:var(--light-bg);
+    border:1px solid rgba(255,255,255,.08); border-radius:20px; overflow:hidden;
+    box-shadow:0 18px 30px rgba(0,0,0,.22);
+  }
+  .infographic-card img{
+    display:block; width:100%; height:auto; object-fit:cover;
+  }
+  .infographic-caption{
+    padding:1.2rem 1.4rem; background:rgba(13,17,23,.85); color:var(--text-color); font-size:.95rem; line-height:1.6;
+  }
+/* ===================== STORY BOX (prose 2 paragraf) ===================== */
+.story-box{
+  background:linear-gradient(135deg, rgba(13,110,253,.10), rgba(192,38,211,.10));
+  border-left:5px solid var(--secondary-color); padding:2rem; margin:2rem 0 2.6rem;
+  border-radius:0 15px 15px 0; box-shadow:0 5px 15px rgba(0,0,0,.25);
+}
+.story-box p{color:var(--text-color); font-size:1rem; line-height:1.8;}
+.story-box p:last-child{margin-bottom:0;}
+.source-note{font-size:.78rem; color:var(--accent-color); opacity:.85; margin-bottom:.4rem; letter-spacing:.02em;}
+
+/* ===================== FALLACY GRID (gaya impact-item) ===================== */
+.impact-analysis{display:grid; grid-template-columns:repeat(3,1fr); gap:2rem; margin-top:1rem;}
+.impact-item{
+  background:var(--light-bg); padding:2rem; border-radius:15px; border-top:3px solid var(--primary-color);
+  text-align:center; position:relative; transition:all .3s ease;
+}
+.impact-item .icon-circle{
+  display:inline-flex; align-items:center; justify-content:center; width:60px; height:60px; border-radius:50%;
+  background:linear-gradient(135deg,var(--primary-color),var(--secondary-color)); font-size:1.5rem; margin-bottom:1rem;
+}
+.impact-item:hover{transform:translateY(-10px) rotateZ(-2deg); box-shadow:0 15px 30px rgba(13,110,253,.3);}
+.impact-item .tag{display:block; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--secondary-color); font-weight:700; margin-bottom:.4rem;}
+.impact-item p{font-size:.92rem; color:var(--text-color);}
+.impact-item .quote{margin-top:1rem; padding-top:.9rem; border-top:1px dashed rgba(255,255,255,.12); font-style:italic; font-size:.82rem; color:var(--accent-color);}
+
+/* ===================== ACTION PLAN (Rencana Aksi = 2 paragraf) ===================== */
+.action-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:2rem; margin-bottom:3rem;}
+.action-plan{
+  background:var(--light-bg); padding:2rem; border-radius:15px; border:1px solid rgba(255,255,255,.08);
+  position:relative; transition:all .3s ease;
+  background-image:repeating-linear-gradient(to bottom, transparent, transparent 2rem, rgba(255,255,255,.025) 2rem, rgba(255,255,255,.025) 2.01rem);
+}
+.action-plan:hover{transform:translateY(-10px); box-shadow:0 15px 30px rgba(250,204,21,.18); border-color:var(--accent-color);}
+.action-plan p{color:var(--text-color); font-size:.95rem; line-height:1.75;}
+.action-plan p:last-child{margin-bottom:0;}
+
+/* ===================== TIMELINE SARING ===================== */
+.timeline{position:relative; padding:2rem 0 0;}
+.timeline::before{
+  content:""; position:absolute; left:50%; transform:translateX(-50%); width:4px; height:100%;
+  background:linear-gradient(to bottom,var(--primary-color),var(--secondary-color)); box-shadow:0 0 10px var(--secondary-color);
+}
+.timeline-item{width:50%; padding:1.4rem; position:relative;}
+.timeline-item:nth-child(odd){left:0; text-align:right; padding-right:3.5rem;}
+.timeline-item:nth-child(even){left:50%; padding-left:3.5rem;}
+.timeline-letter{
+  position:absolute; top:50%; transform:translateY(-50%); width:64px; height:64px; border-radius:50%;
+  background:linear-gradient(135deg,var(--primary-color),var(--secondary-color)); display:flex; align-items:center; justify-content:center;
+  font-weight:800; font-size:1.5rem; color:#fff; border:3px solid var(--dark-bg); box-shadow:0 0 18px rgba(192,38,211,.55); z-index:10;
+}
+.timeline-item:nth-child(odd) .timeline-letter{right:-32px;}
+.timeline-item:nth-child(even) .timeline-letter{left:-32px;}
+.timeline-content{
+  background:var(--light-bg); padding:1.3rem 1.5rem; border-radius:15px; border:1px solid rgba(255,255,255,.08);
+  position:relative; transition:all .3s ease;
+}
+.timeline-content h4{font-size:1.02rem; margin-bottom:.3rem;}
+.timeline-content span{font-size:.86rem; color:var(--text-color);}
+.timeline-content:hover{transform:scale(1.03); box-shadow:0 10px 25px rgba(192,38,211,.2); border-color:var(--secondary-color);}
+.timeline-item:nth-child(odd) .timeline-content::after{content:""; position:absolute; right:-10px; top:18px; border-width:10px 0 10px 10px; border-style:solid; border-color:transparent transparent transparent var(--secondary-color);}
+.timeline-item:nth-child(even) .timeline-content::after{content:""; position:absolute; left:-10px; top:18px; border-width:10px 10px 10px 0; border-style:solid; border-color:transparent var(--secondary-color) transparent transparent;}
+
+/* ===================== EVALUASI (summary gradient cards) ===================== */
+.evaluation-summary{display:grid; grid-template-columns:repeat(2,1fr); gap:2rem; margin-bottom:3rem;}
+.summary-item{
+  background:linear-gradient(135deg,var(--primary-color),var(--secondary-color)); color:#fff; padding:2.2rem;
+  border-radius:15px; position:relative; overflow:hidden; box-shadow:0 5px 15px rgba(0,0,0,.25); transition:all .3s ease;
+}
+.summary-item::before{content:""; position:absolute; width:160px; height:160px; background:rgba(255,255,255,.1); border-radius:50%; top:-55px; right:-55px; transition:transform .5s ease;}
+.summary-item:hover::before{transform:scale(1.5);}
+.summary-item:hover{transform:translateY(-8px) scale(1.015); box-shadow:0 15px 30px rgba(192,38,211,.4);}
+.summary-item h4{color:#fff; position:relative; z-index:1;}
+.summary-item p{color:#fff; font-size:.95rem; position:relative; z-index:1; text-shadow:1px 1px 2px rgba(0,0,0,.2); margin-bottom:0;}
+
+/* ===================== SEBELUM / SESUDAH ===================== */
+.compare{display:grid; grid-template-columns:1fr 1fr; gap:2rem;}
+.compare-card{border-radius:15px; padding:1.8rem;}
+.compare-card.before{background:var(--light-bg); border:2px solid var(--accent-color);}
+.compare-card.after{background:linear-gradient(135deg,var(--primary-color),var(--secondary-color)); color:#fff;}
+.compare-card h4{font-size:.78rem; letter-spacing:.12em; text-transform:uppercase; margin-bottom:1rem;}
+.compare-card.before h4{color:var(--accent-color);}
+.compare-card.after h4{color:#fff;}
+.compare-card ul{padding-left:1.2rem; list-style:disc; font-size:.92rem; line-height:1.8;}
+.compare-card.before ul{color:var(--text-color);}
+.compare-card.after ul{color:#fff;}
+.compare-card li{margin-bottom:.4rem;}
+
+/* ===================== FOOTER & BACK TO TOP ===================== */
+footer{text-align:center; padding:3.5rem 0 2.5rem; background:var(--light-bg); border-top:1px solid rgba(255,255,255,.08);}
+footer .tagline{font-size:clamp(24px,4vw,38px); font-weight:700; color:var(--heading-color);}
+footer .tagline .accent{background:linear-gradient(90deg,var(--primary-color),var(--secondary-color)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;}
+footer .sub{margin-top:.9rem; font-size:.78rem; letter-spacing:.1em; color:var(--accent-color); opacity:.85;}
+footer .credit{margin-top:1.6rem; font-size:.82rem; color:var(--text-color); opacity:.7;}
+
+.back-to-top{
+  position:fixed; bottom:20px; right:20px; width:50px; height:50px; border-radius:50%;
+  background:linear-gradient(135deg,var(--primary-color),var(--secondary-color)); color:#fff;
+  display:flex; align-items:center; justify-content:center; cursor:pointer;
+  opacity:0; visibility:hidden; transition:all .3s ease; z-index:1000; box-shadow:0 2px 10px rgba(0,0,0,.3);
+}
+.back-to-top.visible{opacity:1; visibility:visible;}
+.back-to-top:hover{transform:translateY(-5px); box-shadow:0 5px 18px rgba(0,0,0,.4);}
+
+/* ===================== RESPONSIVE ===================== */
+@media(max-width:992px){
+  .intro-grid, .video-info, .impact-analysis, .action-grid, .evaluation-summary, .compare{grid-template-columns:1fr;}
+  .timeline::before{left:30px;}
+  .timeline-item{width:100%; padding-left:70px; padding-right:1rem; text-align:left;}
+  .timeline-item:nth-child(even){left:0;}
+  .timeline-item:nth-child(odd){left:0; text-align:left; padding-right:1rem;}
+  .timeline-item:nth-child(odd) .timeline-letter, .timeline-item:nth-child(even) .timeline-letter{left:-2px; transform:translate(-50%,-50%);}
+  .timeline-item:nth-child(odd) .timeline-content::after, .timeline-item:nth-child(even) .timeline-content::after{left:-10px; right:auto; border-width:10px 10px 10px 0; border-color:transparent var(--secondary-color) transparent transparent;}
+}
+@media(max-width:768px){
+  h1{font-size:2.3rem;}
+  h2{font-size:1.8rem;}
+  .nav-links{display:none;}
+  header{min-height:auto; padding:130px 1.4rem 4rem;}
+  section{padding:4rem 0;}
+  .container{padding:0 1.2rem;}
+  body{cursor:auto;}
+  .cursor,.cursor-follower{display:none;}
+  .stats-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- Loading Screen -->
+<div class="loader-wrapper"><div class="loader"></div></div>
+
+<!-- Custom Cursor -->
+<div class="cursor"></div>
+<div class="cursor-follower"></div>
+
+<header id="header">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <nav id="navbar">
+    <div class="logo">CRITICAL THINKING</div>
+    <ul class="nav-links">
+      <li><a href="#latar" class="nav-link">Latar Belakang</a></li>
+      <li><a href="#urgensi" class="nav-link">Urgensi</a></li>
+      <li><a href="#aksi" class="nav-link">Rencana Aksi</a></li>
+      <li><a href="#evaluasi" class="nav-link">Evaluasi Diri</a></li>
+    </ul>
+  </nav>
+
+  <div class="hero-content">
+    <h1 id="hero-title"></h1>
+    <p class="subtitle" data-aos="fade-up" data-aos-delay="600"><b>Mata Kuliah:</b> Critical Thinking · Studi Kasus: Hoaks Bantuan TKI Rp75 Juta</p>
+    <p class="subtitle" data-aos="fade-up" data-aos-delay="700">Portofolio Individu — Desta Althaaf Yudhistira</p>
+
+    <div class="banner" data-aos="zoom-in" data-aos-delay="750">
+      <!-- Ganti div di bawah ini dengan <img src="foto-anda.jpg" class="avatar-circle"> untuk foto profil asli -->
+      <img src="foto_kuliah.png" class="avatar-circle">
+    </div>
+
+    <a href="#bukti" class="cta-button" data-aos="fade-up" data-aos-delay="800">Mulai Membaca</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- ================= STUDI KASUS / BUKTI ================= -->
+  <section id="bukti" class="bg-light">
+    <div class="container">
+      <div class="eyebrow" data-aos="fade-up">Studi Kasus</div>
+      <h3 data-aos="fade-up" data-aos-delay="100" style="max-width:49ch;">Begini bentuk hoaks yang menjadi titik berangkat proyek ini.</h3>
+
+      <div class="intro-grid" style="margin-top:2rem;">
+        <div data-aos="fade-right">
+          <div class="feed-card">
+            <div class="stamp" id="stamp">Hoaks Terdeteksi</div>
+            <div class="feed-head">
+              <div class="feed-avatar">D</div>
+              <div>
+                <div class="feed-name">Desta</div>
+                <div class="feed-time">@desta · baru saja</div>
+              </div>
+            </div>
+            <div class="feed-text">
+              Guys liat deh!! <mark>Pak Dedi Mulyadi katanya bagi bantuan Rp75 juta</mark> buat TKI 😱🔥 videonya juga ada, dia ngomong langsung di kamera 🙏
+            </div>
+            <div class="feed-stats">
+              <span>👍 2.1K</span>
+              <span>🔁 980 dibagikan</span>
+              <span>💬 312</span>
+            </div>
+          </div>
+        </div>
+
+        <div data-aos="fade-left">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="num grad-text">63,3%</div>
+              <div class="label">mahasiswa sangat sering dapat berita dari media sosial</div>
+            </div>
+            <div class="stat-card">
+              <div class="num grad-text">70%</div>
+              <div class="label">responden masih kurang paham istilah "misinformasi"</div>
+            </div>
+            <div class="stat-card">
+              <div class="num grad-text">90%</div>
+              <div class="label">mengenali judul clickbait/provokatif sebagai tanda bahaya</div>
+            </div>
+            <div class="stat-card">
+              <div class="num grad-text">75%</div>
+              <div class="label">dosen menilai mahasiswa jarang melakukan cek fakta</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= VIDEO ================= -->
+  <section id="video">
+    <div class="container">
+      <div class="eyebrow" data-aos="fade-up">Konten Edukasi</div>
+      <div class="video-info">
+        <h3 data-aos="fade-up" data-aos-delay="100">"Desta Mau Jadi TKI Gara-Gara Video AI"</h3>
+        <p data-aos="fade-up" data-aos-delay="150" style="max-width:70ch;">Video pendek berdurasi ±3 menit ini membawakan ulang kasus hoaks nyata yang sempat viral, yaitu berita mengenai klaim bantuan Rp75 juta bagi TKI yang diatasnamakan seorang pejabat publik, lengkap dengan video hasil manipulasi AI. Lewat obrolan santai enam mahasiswa di kampus, video ini membedah dua kesesatan berpikir paling umum dan memperkenalkan metode SARING sebagai alat verifikasi praktis.</p>
+      </div>
+
+      <div class="video-frame" data-aos="zoom-in">
+        <!-- Menyematkan YouTube Shorts menggunakan URL embed resmi -->
+        <iframe
+          src="https://www.youtube.com/embed/ZksPar1AUVY"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          style="width:100%; height:100%; border:0;"
+        ></iframe>
+      </div>
+
+      <div class="cast" data-aos="fade-up" data-aos-delay="100">
+        <span>Desta — kekeh percaya berita</span>
+        <span>Felix — fact-checker utama</span>
+        <span>Theo — logis &amp; santai</span>
+        <span>Renaldi — suka mencari sumber</span>
+        <span>Naomi — kritis</span>
+        <span>Nicholas — witty</span>
+      </div>
+
+      <div class="infographic-card" data-aos="fade-up" data-aos-delay="200">
+        <img src="Infografis_CT.png" alt="Infografis Critical Thinking" />
+        <div class="infographic-caption">Infografis SARING — ringkasan metode verifikasi cepat yang melengkapi materi video.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 01 LATAR BELAKANG ================= -->
+  <section id="latar" class="bg-light">
+    <div class="container">
+      <div data-aos="fade-up">
+        <span class="eyebrow">Bagian 01</span>
+        <h2>Latar Belakang Isu &amp; Masalah</h2>
+        <h3>Mengapa misinformasi menjadi persoalan nyata bagi mahasiswa</h3>
+      </div>
+
+      <div class="story-box" data-aos="fade-right">
+        <div class="source-note">Sumber: survei terhadap dosen &amp; 30 mahasiswa aktif Matana University, semester 2–6.</div>
+        <p>Di era digital, arus informasi mengalir lebih cepat daripada kemampuan kita untuk memverifikasinya. Hasil riset yang kami lakukan terhadap dosen dan mahasiswa aktif Matana University menunjukkan gambaran yang cukup mengkhawatirkan. Sebagian besar mahasiswa mengaku sangat sering memperoleh berita dan informasi dari media sosial, dengan Instagram dan TikTok sebagai platform yang paling banyak diakses. Namun, karena kecepatan akses ini tidak diimbangi pemahaman yang memadai, mayoritas responden mengaku masih kurang paham terhadap istilah "misinformasi" itu sendiri. Juga, hampir semua mahasiswa pernah menemukan berita palsu atau menyesatkan di media sosial, paling sering dikenali lewat judul yang clickbait dan provokatif serta ketiadaan sumber yang jelas.</p>
+        <p>Menurut para dosen yang kami wawancarai, terdapat beberapa akar masalah yang cukup spesifik. Mayoritas dari mereka menilai bahwa kelemahan utama mahasiswa bukan soal akses terhadap informasi yang benar, melainkan kebiasaan untuk tidak melakukan pengecekan fakta sebelum mempercayai atau menyebarkan suatu konten. Persoalan ini menjadi sangat nyata ketika kami menemukan kasus viral mengenai klaim bantuan Rp75 juta untuk Tenaga Kerja Indonesia (TKI) yang diatasnamakan seorang pejabat publik. Setelah ditelusuri, klaim tersebut terbukti hoaks dan tidak ada satu pun pengumuman resmi yang mendukungnya, serta video yang beredar merupakan hasil manipulasi kecerdasan buatan (AI). Kasus inilah yang kemudian kami angkat menjadi studi kasus utama dalam video edukasi yang kami produksi, karena merepresentasikan persis pola misinformasi yang paling sering ditemui mahasiswa, yaitu tampilan yang meyakinkan, klaim yang menggiurkan dan kecepatan penyebaran yang jauh mendahului proses verifikasi.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 02 URGENSI ================= -->
+  <section id="urgensi">
+    <div class="container">
+      <div data-aos="fade-up">
+        <span class="eyebrow">Bagian 02</span>
+        <h2>Urgensi Berpikir Kritis</h2>
+        <h3>Ketaksaan, asumsi tersembunyi, &amp; kesesatan berpikir.</h3>
+      </div>
+
+      <div class="story-box" data-aos="fade-right">
+        <p>Kasus hoaks Rp75 juta yang kami angkat memperlihatkan dengan jelas bagaimana ambiguitas (ambiguity) dapat dimanfaatkan untuk menyesatkan seseorang. Sebuah video yang menampilkan sosok pejabat "berbicara langsung" tampak meyakinkan secara visual, padahal teknologi AI generatif kini mampu merekonstruksi wajah dan suara seseorang nyaris sempurna. Batas antara "terlihat asli" dan "benar-benar asli" menjadi kabur, dan disinilah banyak orang-orang termasuk mahasiswa bisa saja gagal dalam membedakan keduanya. Di balik kekaburan ini, tersembunyi sejumlah asumsi yang jarang dipertanyakan: asumsi bahwa video selalu merekam kenyataan apa adanya, asumsi bahwa unggahan yang viral pasti sudah diperiksa kebenarannya oleh orang lain, dan asumsi bahwa seseorang yang menyandang jabatan tertentu tidak mungkin disalahgunakan citranya. Kegagalan dalam membongkar asumsi-asumsi dasar inilah yang menciptakan celah besar bagi misinformasi untuk tersebar</p>
+        <p>Untuk membongkar jebakan  ambiguitas dan asumi tersebut, proyek ini secara spesifik menargetkan dua kesesatan berpikir (logical fallacy) yang paling dominan dan berbahaya dalam pola pikir mahasiswa, yaitu Appeal to Authority dan Bandwagon Fallacy. Kedua hal ini sering kali membuat berita palsu terasa sangat masuk akal, apalagi jika ditambah judul yang memancing (clickbait) dan tanpa sumber yang jelas. Video dan infografis yang kami rancang berfungsi untuk memvisualisasikan mengapa kedua kesalahan logika ini terasa sangat rasional di mata pengguna media sosial dan melatih mahasiswa agar tidak mudah terjebak hoaks. Urgensi dari proyek ini adalah mengubah metode SARING dari sekadar konsep teoritis menjadi sebuah kebiasaan otomatis. Lewat konten visual ini, kami ingin membiasakan audiens untuk berhenti sejenak, tidak langsung percaya pada video atau gambar yang kelihatan asli dan berani mengecek faktanya terlebih dahulu sebelum ikut menyebarkan hoaks ke orang lain.</p>
+      </div>
+
+      <div class="impact-analysis">
+        <div class="impact-item" data-aos="zoom-in" data-aos-delay="100">
+          <div class="icon-circle">🎤</div>
+          <span class="tag">Kesesatan 01</span>
+          <h4>Appeal to Authority</h4>
+          <p>Percaya hanya karena yang bicara adalah pejabat atau figur berwenang, tanpa memverifikasi isi klaimnya.</p>
+          <div class="quote">"Kalau ada video presiden bilang bumi kotak, lu percaya juga?"</div>
+        </div>
+        <div class="impact-item" data-aos="zoom-in" data-aos-delay="200">
+          <div class="icon-circle">📢</div>
+          <span class="tag">Kesesatan 02</span>
+          <h4>Bandwagon Fallacy</h4>
+          <p>Menganggap sesuatu pasti benar karena sudah dibagikan dan dipercaya banyak orang.</p>
+          <div class="quote">"Kalau satu sekolah salah jawab ujian, apa jawabannya jadi benar?"</div>
+        </div>
+        <div class="impact-item" data-aos="zoom-in" data-aos-delay="300">
+          <div class="icon-circle">🎥</div>
+          <span class="tag">Kesesatan 03</span>
+          <h4>Bukti ≠ Fakta</h4>
+          <p>Menyamakan video atau gambar yang "terlihat asli" dengan sesuatu yang sudah pasti terbukti benar.</p>
+          <div class="quote">"Sekarang AI bisa bikin video, suara, bahkan wajah yang terlihat meyakinkan."</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 03 RENCANA AKSI ================= -->
+  <section id="aksi" class="bg-light">
+    <div class="container">
+      <div data-aos="fade-up">
+        <span class="eyebrow">Bagian 03</span>
+        <h2>Rencana Aksi &amp; Pengembangan Diri</h2>
+        <h3>Metode SARING — kerangka verifikasi enam langkah dari video edukasi kami</h3>
+      </div>
+
+      <div class="action-grid">
+        <div class="action-plan" data-aos="flip-left" data-aos-delay="100">
+          <h4>🌱 Keberlanjutan Proyek</h4>
+          <p>Untuk keberlanjutan proyek ini, kami merancang metode SARING sebagai kerangka praktis yang mudah diingat dan diterapkan mahasiswa dalam keseharian bermedia sosial. Sejalan dengan preferensi mayoritas mahasiswa terhadap format video pendek berdurasi 1–3 menit dengan gaya penyampaian santai, rencana ke depan adalah mengembangkan rangkaian konten serupa dengan studi kasus nyata lain yang sedang viral. Konten didistribusikan secara konsisten melalui dua platform yang paling banyak digunakan mahasiswa untuk mengakses informasi, yaitu Instagram dan TikTok. Kami juga berencana melengkapi video dengan infografis ringkas berisi ringkasan metode SARING, sehingga audiens yang lebih menyukai format visual statis tetap dapat terbantu.</p>
+        </div>
+        <div class="action-plan" data-aos="flip-right" data-aos-delay="200">
+          <h4>🚀 Pengembangan Diri</h4>
+          <p>Bagi pengembangan diri saya pribadi, proyek ini menjadi titik awal untuk membiasakan SARING bukan hanya sebagai materi yang diajarkan ke orang lain, tetapi sebagai kebiasaan pribadi sebelum membagikan apa pun di media sosial. Saya berkomitmen untuk terus mempertajam kemampuan saya dalam menelusuri sumber terpecaya, memanfaatkan berbagai platform untuk mengecek fakta dari suatu berita, dan secara sadar menahan diri dari dorongan untuk langsung percaya pada informasi yang terasa emosional atau menggiurkan. Ke depan, saya juga ingin memperdalam pemahaman tentang cara kerja AI generatif, mengingat teknologi inilah yang kini menjadi alat utama di balik banyak hoaks visual yang beredar.</p>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item" data-aos="fade-right">
+          <div class="timeline-letter">S</div>
+          <div class="timeline-content"><h4>Stop Sejenak</h4><span>Jangan langsung percaya — beri jeda sebelum bereaksi atau membagikan.</span></div>
+        </div>
+        <div class="timeline-item" data-aos="fade-left">
+          <div class="timeline-letter">A</div>
+          <div class="timeline-content"><h4>Analisis Sumber</h4><span>Cek siapa yang mengunggah pertama kali dan rekam jejaknya.</span></div>
+        </div>
+        <div class="timeline-item" data-aos="fade-right">
+          <div class="timeline-letter">R</div>
+          <div class="timeline-content"><h4>Riset Pembanding</h4><span>Cari beritanya di media terpercaya — adakah yang melaporkan hal sama?</span></div>
+        </div>
+        <div class="timeline-item" data-aos="fade-left">
+          <div class="timeline-letter">I</div>
+          <div class="timeline-content"><h4>Identifikasi Logika</h4><span>Masuk akal atau tidak? Apakah klaimnya realistis?</span></div>
+        </div>
+        <div class="timeline-item" data-aos="fade-right">
+          <div class="timeline-letter">N</div>
+          <div class="timeline-content"><h4>Nilai Kebenarannya</h4><span>Adakah bukti resmi, atau hanya sekadar "katanya"?</span></div>
+        </div>
+        <div class="timeline-item" data-aos="fade-left">
+          <div class="timeline-letter">G</div>
+          <div class="timeline-content"><h4>Gerakkan Jempol Setelah Yakin</h4><span>Baru bagikan kalau sudah benar-benar terverifikasi.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 04 EVALUASI DIRI ================= -->
+  <section id="evaluasi">
+    <div class="container">
+      <div data-aos="fade-up">
+        <span class="eyebrow">Bagian 04</span>
+        <h2>Evaluasi Diri</h2>
+        <h3>Perubahan kognitif, emosional, dan nilai setelah menjalani proyek ini</h3>
+      </div>
+
+      <div class="evaluation-summary">
+        <div class="summary-item" data-aos="zoom-in-up" data-aos-delay="100">
+          <h4>🧠 Perubahan Kognitif</h4>
+          <p>Secara kognitif, proyek ini mengubah cara saya memproses informasi yang saya temui sehari-hari. Sebelumnya, saya cenderung menilai suatu konten dari kesan pertama, seperti siapa yang membagikannya, seberapa meyakinkan tampilannya, atau seberapa banyak orang yang sudah berinteraksi dengannya. Setelah menyusun riset video dan infografis ini, saya menjadi lebih sadar bahwa kesan pertama semacam itu justru rentan dimanipulasi. Sekarang, saya secara refleks bertanya "dari mana sumber informasi ini?" sebelum mempercayai sebuah informasi. Kemampuan mengenali pola kesesatan berpikir seperti appeal to authority dan bandwagon fallacy juga membuat saya lebih jeli melihat celah argumen, baik dalam konten yang saya konsumsi maupun dalam diskusi sehari-hari.</p>
+        </div>
+        <div class="summary-item" data-aos="zoom-in-up" data-aos-delay="200">
+          <h4>❤️⚖️ Perubahan Emosional &amp; Nilai</h4>
+          <p>Secara emosional, saya menyadari bahwa godaan untuk langsung percaya pada informasi yang menggiurkan sering kali muncul karena ada suatu harapan atau kebutuhan yang ingin segera terpenuhi. Memahami hal ini membuat saya lebih sabar dan tidak terburu-buru bereaksi, sekaligus lebih berempati pada orang-orang yang menjadi korban hoaks, alih-alih menghakimi mereka sebagai "mudah tertipu". Dari sisi nilai, proyek ini menanamkan keyakinan bahwa memverifikasi sebelum membagikan bukan sekadar kewajiban akademis, melainkan bentuk tanggung jawab sosial. Karena setiap informasi yang saya bagikan berpotensi memengaruhi keputusan orang lain.</p>
+        </div>
+      </div>
+
+      <div class="compare" data-aos="fade-up">
+        <div class="compare-card before">
+          <h4>Sebelum Proyek</h4>
+          <ul>
+            <li>Menilai kebenaran dari tampilan &amp; jumlah share</li>
+            <li>Mudah percaya pada figur berwenang tanpa cek ulang</li>
+            <li>Cepat bereaksi pada info yang menggiurkan</li>
+          </ul>
+        </div>
+        <div class="compare-card after">
+          <h4>Setelah Proyek</h4>
+          <ul>
+            <li>Mengecek sumber &amp; membandingkan media lain</li>
+            <li>Mempertanyakan klaim, sekuat apa pun otoritasnya</li>
+            <li>Menjalankan SARING sebelum membagikan apa pun</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="tagline">SARING sebelum <span class="accent">SHARING.</span></div>
+    <div class="sub">PENGUATAN KEMAMPUAN CRITICAL THINKING DI ERA DIGITAL</div>
+    <p class="credit">Portofolio individu — Mata Kuliah Critical Thinking · Studi Kasus Hoaks Bantuan TKI Rp75 Juta</p>
+  </div>
+</footer>
+
+<div id="back-to-top" class="back-to-top"><i class="fas fa-arrow-up"></i></div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  // --- AOS ---
+  AOS.init({ duration: 1000, once: true });
+
+  // --- Typing effect (satu kali, judul tetap sama persis) ---
+  const heroTitle = document.getElementById('hero-title');
+  const fullText = "SARING sebelum SHARING.";
+  let charIndex = 0;
+  function typeOnce() {
+    if (charIndex <= fullText.length) {
+      const shown = fullText.substring(0, charIndex);
+      heroTitle.innerHTML = shown.replace('SHARING.', '<em>SHARING.</em>');
+      charIndex++;
+      setTimeout(typeOnce, 95);
+    }
+  }
+  typeOnce();
+
+  // --- Navbar on scroll ---
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // --- Active nav link on scroll ---
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const top = section.offsetTop;
+      const height = section.clientHeight;
+      if (pageYOffset >= top - 220) current = section.getAttribute('id');
+    });
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href').slice(1) === current) link.classList.add('active');
+    });
+  });
+
+  // --- Smooth scroll ---
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', function (e) {
+      const targetId = this.getAttribute('href');
+      const target = document.querySelector(targetId);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  // --- Custom cursor ---
+  const cursor = document.querySelector('.cursor');
+  const cursorFollower = document.querySelector('.cursor-follower');
+  document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    setTimeout(() => {
+      cursorFollower.style.left = e.clientX + 'px';
+      cursorFollower.style.top = e.clientY + 'px';
+    }, 100);
+  });
+
+  // --- Loading screen ---
+  window.addEventListener('load', () => {
+    document.querySelector('.loader-wrapper').classList.add('fade-out');
+  });
+
+  // --- Hoax stamp pop ---
+  setTimeout(() => {
+    const stamp = document.getElementById('stamp');
+    if (stamp) stamp.classList.add('in');
+  }, 1600);
+
+});
+
+// --- Back to top ---
+const backToTopButton = document.getElementById('back-to-top');
+window.addEventListener('scroll', () => {
+  backToTopButton.classList.toggle('visible', window.scrollY > 300);
+});
+backToTopButton.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
+
+</body>
+</html>
